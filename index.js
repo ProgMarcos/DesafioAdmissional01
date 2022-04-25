@@ -181,29 +181,29 @@ function organizer(data) {
 
 //---------------------------------------------------------------//
 //código principal
-const strcsv = fs.readFileSync(('input.csv'), {
-    encoding: 'utf8'
-});
-var split = strcsv.split(',')
+const strcsv = fs.readFileSync(('input.csv'), {encoding: 'utf8'});//le o arquivo csv
+var split = strcsv.split(',')//divide ele em um array
 
-for (let i in split) {
+for (let i in split) { //separa os dois headers com o mesmo nome
     if (split[i] == 'group') {
         split[i] = 'group1'
         break;
     }
 }
 
-var resultdata = split.join()
+var resultdata = split.join()//junta o array novamente
 
 var options = {
     delimiter: ',',
     quote: '"'
 };
-var objectcsv = csvjson.toObject(resultdata, options);
-const result = organizer(objectcsv)
+var objectcsv = csvjson.toObject(resultdata, options);//transforma em objeto
+const result = organizer(objectcsv)//chama a função que organiza o objeto
+
+//salva no arquivo
 fs.writeFile('output.json', JSON.stringify(result, null, 4), (err) => {
     if (err) {
         throw err;
     }
-    console.log("JSON array is saved.");
+    console.log("Arquivo JSON salvo.");
 });
